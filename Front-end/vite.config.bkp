@@ -1,0 +1,11 @@
+// Importa a função de configuração do Vite
+import { defineConfig } from 'vite'
+// Importa o plugin do React para o Vite
+import react from '@vitejs/plugin-react'
+
+// Configuração do Vite - ferramenta de build e desenvolvimento
+// Documentação: https://vite.dev/config/
+export default defineConfig({
+  // Array de plugins utilizados no projeto
+  plugins: [react()], // Plugin que habilita o suporte ao React (JSX, Fast Refresh, etc)
+})

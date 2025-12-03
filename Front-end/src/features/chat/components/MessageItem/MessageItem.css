@@ -1,0 +1,60 @@
+/* Container de cada mensagem individual */
+.msg-item-container {
+  max-width: 70%; /* Máximo de 70% da largura do chat */
+  display: flex; /* Usa flexbox */
+  flex-direction: column; /* Organiza nome e mensagem em coluna */
+  gap: 4px; /* Espaço de 4px entre nome e mensagem */
+}
+
+/* Alinhamento para mensagens do bot (à esquerda) */
+.msg-item-container.bot {
+  align-self: flex-start; /* Alinha à esquerda */
+}
+
+/* Alinhamento para mensagens do usuário (à direita) */
+.msg-item-container.user {
+  align-self: flex-end; /* Alinha à direita */
+}
+
+/* Estilo do nome do usuário/bot acima da mensagem */
+.msg-username {
+  font-size: 12px; /* Fonte pequena */
+  font-weight: 600; /* Semi-negrito */
+  padding: 0 4px; /* Espaçamento horizontal */
+  color: #000000; /* Cor preta */
+}
+
+/* Nome alinhado à direita para mensagens do usuário */
+.msg-item-container.user .msg-username {
+  text-align: right;
+}
+
+/* Nome alinhado à esquerda para mensagens do bot */
+.msg-item-container.bot .msg-username {
+  text-align: left;
+}
+
+/* Balão da mensagem */
+.msg-item {
+  padding: 10px 14px; /* Espaçamento interno */
+  border-radius: 12px; /* Cantos arredondados */
+  font-size: 14px; /* Tamanho da fonte */
+  word-wrap: break-word; /* Quebra palavras longas */
+  overflow-wrap: break-word; /* Garante quebra de texto */
+  white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+  line-height: 1.4; /* Altura da linha para melhor legibilidade */
+}
+
+/* Estilo do balão para mensagens do bot */
+.msg-item.bot {
+  background: #00213E; /* Fundo azul escuro */
+  color: white; /* Texto branco */
+  border-bottom-left-radius: 4px; /* Canto inferior esquerdo menos arredondado (pontinha) */
+}
+
+/* Estilo do balão para mensagens do usuário */
+.msg-item.user {
+  background: #e5e7eb; /* Fundo cinza claro */
+  color: #1f2937; /* Texto cinza escuro */
+  border-bottom-right-radius: 4px; /* Canto inferior direito menos arredondado (pontinha) */
+}

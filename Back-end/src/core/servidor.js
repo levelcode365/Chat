@@ -1,4 +1,3 @@
-// src/core/servidor.js - VERSÃO FINAL CORRIGIDA
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -87,7 +86,7 @@ app.use((err, req, res, next) => {
 
 
 function iniciarServidor() {
-    const PORTA = process.env.DB_PORTA || 3000;
+    const PORTA = process.env.DB_PORTA || 3001;
 
     // Iniciar servidor HTTP
     const servidor = app.listen(PORTA, () => {

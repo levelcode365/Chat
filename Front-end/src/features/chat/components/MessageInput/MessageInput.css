@@ -1,0 +1,129 @@
+/* === Estilos da área de input de mensagens === */
+
+/* Container principal da área de input */
+.msg-input-area {
+  display: flex; /* Usa flexbox para organizar elementos */
+  align-items: flex-end; /* Alinha elementos na parte inferior */
+  padding: 12px; /* Espaçamento interno */
+  border-top: 1px solid #ddd; /* Borda superior cinza */
+  background: white; /* Fundo branco */
+  gap: 8px; /* Espaço de 8px entre input e botões */
+}
+
+/* Coluna dos botões (Enviar e Limpar) */
+.buttons-column {
+  display: flex; /* Usa flexbox */
+  flex-direction: column; /* Organiza botões em coluna */
+  gap: 6px; /* Espaço de 6px entre os botões */
+}
+
+/* Wrapper do textarea com contador de caracteres */
+.input-wrapper {
+  flex: 1; /* Ocupa todo espaço disponível */
+  position: relative; /* Permite posicionar o contador absolutamente */
+}
+
+/* Campo de texto (textarea) */
+.msg-input {
+  width: 100%; /* Largura total do container */
+  padding: 10px 12px; /* Espaçamento interno */
+  padding-bottom: 30px; /* Espaço extra embaixo para o contador */
+  border-radius: 8px; /* Cantos arredondados */
+  border: 1px solid #ccc; /* Borda cinza */
+  outline: none; /* Remove outline padrão do navegador */
+  transition: all 0.2s; /* Transição suave de 0.2s */
+  font-family: inherit; /* Usa a mesma fonte do resto da página */
+  font-size: 14px; /* Tamanho da fonte */
+  resize: vertical; /* Permite redimensionar apenas verticalmente */
+  min-height: 60px; /* Altura mínima */
+  max-height: 180px; /* Altura máxima */
+  line-height: 1.4; /* Altura da linha */
+}
+
+/* Estilo do textarea quando está focado (sendo usado) */
+.msg-input:focus {
+  border-color: #00213E; /* Borda azul escuro */
+}
+
+/* Estilo do textarea quando está desabilitado */
+.msg-input:disabled {
+  background: #f3f4f6; /* Fundo cinza claro */
+  cursor: not-allowed; /* Cursor de "não permitido" */
+}
+
+/* Contador de caracteres */
+.char-counter {
+  position: absolute; /* Posição absoluta dentro do wrapper */
+  bottom: 8px; /* 8px do fundo */
+  right: 12px; /* 12px da direita */
+  font-size: 12px; /* Fonte pequena */
+  color: #6b7280; /* Cor cinza */
+  pointer-events: none; /* Não interfere com cliques */
+}
+
+/* === Botões === */
+
+/* Botão de enviar */
+.send-btn {
+  padding: 10px 20px; /* Espaçamento interno */
+  background: #00213E; /* Fundo azul escuro */
+  color: white; /* Texto branco */
+  border: none; /* Remove borda padrão */
+  border-radius: 8px; /* Cantos arredondados */
+  cursor: pointer; /* Cursor de mão */
+  transition: all 0.2s; /* Transição suave */
+  font-weight: 500; /* Fonte semi-negrito */
+  white-space: nowrap; /* Não quebra o texto */
+  height: 50px; /* Altura fixa */
+}
+
+/* Efeito hover no botão enviar (quando não está desabilitado) */
+.send-btn:hover:not(:disabled) {
+  background: #003557; /* Azul mais escuro */
+  transform: translateY(-1px); /* Move 1px para cima */
+}
+
+/* Efeito ao clicar no botão enviar */
+.send-btn:active:not(:disabled) {
+  transform: translateY(0); /* Volta à posição original */
+}
+
+/* Estilo do botão enviar quando desabilitado */
+.send-btn:disabled {
+  opacity: 0.6; /* Mais transparente */
+  cursor: not-allowed; /* Cursor de "não permitido" */
+  transform: none; /* Remove transformações */
+}
+
+/* Botão de limpar */
+.clear-btn {
+  padding: 8px 20px; /* Espaçamento interno (menor que o enviar) */
+  background: #dc2626; /* Fundo vermelho */
+  color: white; /* Texto branco */
+  border: none; /* Remove borda padrão */
+  border-radius: 8px; /* Cantos arredondados */
+  cursor: pointer; /* Cursor de mão */
+  transition: all 0.2s; /* Transição suave */
+  font-weight: 500; /* Fonte semi-negrito */
+  white-space: nowrap; /* Não quebra o texto */
+  height: 40px; /* Altura menor que o botão enviar */
+  font-size: 13px; /* Fonte um pouco menor */
+}
+
+/* Efeito hover no botão limpar */
+.clear-btn:hover:not(:disabled) {
+  background: #b91c1c; /* Vermelho mais escuro */
+  transform: translateY(-1px); /* Move 1px para cima */
+}
+
+/* Efeito ao clicar no botão limpar */
+.clear-btn:active:not(:disabled) {
+  transform: translateY(0); /* Volta à posição original */
+}
+
+/* Estilo do botão limpar quando desabilitado */
+.clear-btn:disabled {
+  opacity: 0.6; /* Mais transparente */
+  cursor: not-allowed; /* Cursor de "não permitido" */
+  transform: none; /* Remove transformações */
+}

@@ -1,0 +1,27 @@
+/* Reset global de espaçamentos e box-sizing */
+* {
+  margin: 0; /* Remove margem padrão de todos os elementos */
+  padding: 0; /* Remove padding padrão de todos os elementos */
+  box-sizing: border-box; /* Faz width/height incluir padding e border */
+}
+
+/* Estilos do corpo da página */
+body {
+  /* Pilha de fontes para compatibilidade entre sistemas operacionais */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  /* Suavização de fontes para melhor renderização */
+  -webkit-font-smoothing: antialiased; /* Safari/Chrome */
+  -moz-osx-font-smoothing: grayscale; /* Firefox no macOS */
+  /* Define altura mínima de 100% da viewport */
+  min-height: 100vh;
+  /* Remove scroll padrão */
+  overflow: hidden;
+}
+
+/* Container raiz da aplicação React */
+#root {
+  width: 100vw; /* Largura total da viewport */
+  height: 100vh; /* Altura total da viewport */
+}

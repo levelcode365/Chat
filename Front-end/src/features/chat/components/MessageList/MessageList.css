@@ -1,0 +1,51 @@
+/* Container da lista de mensagens */
+.message-list {
+  display: flex; /* Usa flexbox */
+  flex-direction: column; /* Organiza mensagens em coluna (vertical) */
+  gap: 8px; /* Espaço de 8px entre cada mensagem */
+}
+
+/* === Indicador de digitação (3 pontos animados) === */
+
+/* Container do indicador de digitação */
+.typing-indicator {
+  display: flex; /* Usa flexbox para organizar os pontos */
+  gap: 4px; /* Espaço de 4px entre cada ponto */
+  padding: 12px 16px; /* Espaçamento interno */
+  background: #00213E; /* Fundo azul escuro (cor do bot) */
+  border-radius: 12px; /* Cantos arredondados */
+  width: fit-content; /* Largura ajustada ao conteúdo */
+  max-width: 80px; /* Largura máxima */
+  align-self: flex-start; /* Alinha à esquerda (como mensagem do bot) */
+}
+
+/* Cada ponto do indicador */
+.typing-dot {
+  width: 8px; /* Largura do ponto */
+  height: 8px; /* Altura do ponto */
+  background: white; /* Cor branca */
+  border-radius: 50%; /* Torna circular */
+  animation: typing 1.4s infinite; /* Animação infinita de 1.4 segundos */
+}
+
+/* Delay para o segundo ponto (efeito de onda) */
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+/* Delay para o terceiro ponto (efeito de onda) */
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Animação de digitação: pontos sobem e descem */
+@keyframes typing {
+  0%, 60%, 100% {
+    opacity: 0.3; /* Opacidade baixa */
+    transform: translateY(0); /* Posição normal */
+  }
+  30% {
+    opacity: 1; /* Opacidade total */
+    transform: translateY(-8px); /* Move 8px para cima */
+  }
+}

@@ -1,0 +1,33 @@
+/* Estilos do cabeçalho do chat */
+.chat-header {
+  background: #00213E; /* Fundo azul escuro */
+  color: white; /* Texto branco */
+  padding: 16px; /* Espaçamento interno */
+  display: flex; /* Usa flexbox para organizar elementos */
+  justify-content: space-between; /* Espaça elementos nas extremidades */
+  align-items: center; /* Alinha verticalmente ao centro */
+  font-weight: bold; /* Texto em negrito */
+  font-size: 16px; /* Tamanho da fonte */
+}
+
+/* Botão de fechar o chat */
+.close-btn {
+  background: rgba(255, 255, 255, 0.2); /* Fundo branco semi-transparente */
+  border: none; /* Remove borda padrão */
+  color: white; /* Cor do X */
+  font-size: 24px; /* Tamanho do X */
+  cursor: pointer; /* Cursor de mão */
+  width: 32px; /* Largura do botão */
+  height: 32px; /* Altura do botão */
+  border-radius: 50%; /* Torna circular */
+  display: flex; /* Usa flexbox para centralizar */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  transition: all 0.2s; /* Transição suave de 0.2s */
+}
+
+/* Efeito ao passar o mouse sobre o botão de fechar */
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3); /* Fundo um pouco mais opaco */
+  transform: scale(1.1); /* Aumenta 10% */
+}

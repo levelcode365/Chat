@@ -1,0 +1,16 @@
+/* Container principal do layout do chat */
+.chat-layout {
+  display: flex; /* Usa flexbox para organizar os elementos */
+  flex-direction: column; /* Organiza elementos em coluna (vertical) */
+  height: 100%; /* Ocupa 100% da altura do container pai */
+  background: white; /* Fundo branco */
+  overflow: hidden; /* Esconde conteúdo que ultrapassa os limites */
+}
+
+/* Área de conteúdo onde ficam as mensagens */
+.chat-content {
+  flex: 1; /* Ocupa todo o espaço disponível entre header e input */
+  overflow-y: auto; /* Permite scroll vertical quando há muitas mensagens */
+  padding: 12px; /* Espaçamento interno de 12px */
+  background: #f5f7fa; /* Cor de fundo cinza claro */
+}

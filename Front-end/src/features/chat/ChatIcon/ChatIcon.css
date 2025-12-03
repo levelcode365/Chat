@@ -1,0 +1,54 @@
+/* Estilos do ícone flutuante do chat */
+.chat-icon {
+  position: fixed; /* Posição fixa na tela, não move com scroll */
+  bottom: 30px; /* Distância de 30px do fundo da tela */
+  right: 30px; /* Distância de 30px da direita da tela */
+  width: 80px; /* Largura do círculo */
+  height: 80px; /* Altura do círculo */
+  border-radius: 50%; /* Torna o elemento circular */
+  background: #00213E; /* Cor de fundo azul escuro */
+  color: white; /* Cor do ícone */
+  border: 3px solid white; /* Borda branca de 3px */
+  cursor: pointer; /* Mostra cursor de mão ao passar o mouse */
+  box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Sombra para efeito de elevação */
+  transition: all 0.3s ease; /* Transição suave de 0.3s para todas as propriedades */
+  display: flex; /* Usa flexbox para centralizar conteúdo */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: center; /* Centraliza horizontalmente */
+  z-index: 1000; /* Garante que fica sobre outros elementos */
+  animation: pulse 2s infinite; /* Animação de pulso a cada 2 segundos */
+  opacity: 1; /* Totalmente visível */
+  visibility: visible; /* Elemento visível */
+}
+
+/* Estado oculto do ícone */
+.chat-icon.hidden {
+  opacity: 0; /* Transparente */
+  visibility: hidden; /* Invisível */
+  pointer-events: none; /* Desabilita interações com mouse */
+}
+
+/* Efeito ao passar o mouse sobre o ícone */
+.chat-icon:hover {
+  transform: scale(1.15); /* Aumenta 15% do tamanho original */
+  box-shadow: 0px 12px 32px rgba(0, 33, 62, 0.8); /* Sombra mais intensa */
+  animation: none; /* Remove a animação de pulso */
+}
+
+/* Efeito ao clicar no ícone */
+.chat-icon:active {
+  transform: scale(0.95); /* Reduz para 95% do tamanho (efeito de apertar) */
+}
+
+/* Animação de pulso do ícone */
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Sombra normal */
+  }
+  50% {
+    box-shadow: 0px 8px 32px rgba(0, 33, 62, 0.9); /* Sombra mais intensa */
+  }
+  100% {
+    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Volta à sombra normal */
+  }
+}
