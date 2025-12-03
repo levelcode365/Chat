@@ -1,0 +1,57 @@
+1.1 Core
+
+servidor.js → Inicializa o Express, aplica middlewares globais, configura CORS, Rate Limit, Helmet, JSON body parser, rotas e porta do servidor.
+
+rotas.js → Registro central de todas as rotas. Importa mensagem.rotas.js e usuario.rotas.js e aplica prefixo /api.
+
+1.2 Config
+
+banco.js → Conexão com banco de dados, configuração inicial, exporta funções de consulta.
+
+jwt.js → Funções para gerar e validar JWT (autenticação).
+
+websocket.js → Inicializa WebSocket, gerencia eventos e conexões ativas.
+
+1.3 Middlewares
+
+autenticarJWT.js → Verifica token JWT em requisições, protege endpoints privados.
+
+validarDados.js → Valida payloads das requisições antes de chegar no controller.
+
+document.txt → Explicação geral sobre como os middlewares funcionam e onde aplicar.
+
+1.4 Módulos
+
+mensagem/
+
+mensagem.controlador.js → Lida com requisições HTTP (GET, POST, DELETE).
+
+mensagem.servico.js → Lógica de negócio (regras de mensagens).
+
+mensagem.repositorio.js → Consulta ao banco (CRUD).
+
+mensagem.modelo.js → Definição do schema/estrutura da tabela.
+
+usuario/
+
+usuario.controlador.js → Requisições HTTP de usuário.
+
+usuario.servico.js → Regras de negócio de usuário.
+
+usuario.repositorio.js → Acesso ao banco.
+
+usuario.modelo.js → Schema do usuário.
+
+usuario.validacoes.js → Validação de payloads específicos de usuário.
+
+1.5 Utils
+
+Funções auxiliares, padronização de respostas, formatação de dados, tratamento de erros.
+
+1.6 WebSocket
+
+gerenciador.js → Inicializa WebSocket, mantém lista de conexões.
+
+eventos.js → Define eventos enviados e recebidos.
+
+conexoesAtivas.js → Armazena usuários conectados.
