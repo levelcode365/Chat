@@ -1,1 +1,2 @@
-Lucas cxcxcxc
+03/12/2025 - {Tela do chat maximizada} , {Feita a conecção do Front-end a API do Back-end} , {Porta trocada para 3005}
+03/12/2025 - Adcionado para ilustração, arquivo Regras_Mensageria.json >> modelo de regras

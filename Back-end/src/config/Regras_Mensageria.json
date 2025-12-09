@@ -1,0 +1,418 @@
+{
+  "regras_mensageria": {
+    "versao": "1.0.0",
+    "data_atualizacao": "2024-01-15",
+    "descricao": "Regras completas do sistema de mensageria LevelShop Chat",
+    
+    "horario_funcionamento": {
+      "atendimento_humano": {
+        "dias": ["segunda", "terca", "quarta", "quinta", "sexta"],
+        "horario_inicio": "08:00",
+        "horario_fim": "14:00"
+      },
+      "bot": {
+        "disponibilidade": "24h",
+        "dias": ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "feriados"]
+      },
+      "mensagem_fora_horario": "Atendimento humano disponível das 8h às 14h, de segunda a sexta"
+    },
+        
+    "roteamento_bot_atendente": {
+      "transferencia_obrigatoria": {
+        "tentativas_bot_sem_resolucao": 3,
+        "palavras_chave_urgencia": [
+          "problema", "erro", "não funciona", "defeito",
+          "reclamação", "cancelamento", "devolução",
+          "emergência", "urgente", "imediatamente"
+        ],
+        "solicitacao_explicita": ["atendente", "humano", "falar com pessoa"],
+        "cliente_vip": true,
+        "problema_complexo_ia": true
+      },
+      "permanencia_bot": [
+        "perguntas_simples_produtos",
+        "consulta_precos_disponibilidade",
+        "informacoes_gerais_empresa",
+        "horarios_enderecos",
+        "status_pedido_automatizado"
+      ]
+    },
+    
+    "regras_conversa": {
+      "inicio_conversa": {
+        "fluxo": [
+          "bot_pergunta_nome",
+          "validacao_banco_dados",
+          {
+            "nao_encontrado": ["pergunta_eh_cliente", "coleta_email"]
+          },
+          "saudacao_personalizada_nome"
+        ]
+      },
+      "duracao_conversa": {
+        "maximo_minutos": 60,
+        "inatividade": {
+          "5_minutos": "pergunta_ainda_esta_ai",
+          "15_minutos": "encerramento_automatico"
+        }
+      },
+      "encerramento": {
+        "triggers": [
+          "cliente_despede",
+          "problema_resolvido_com_confirmacao",
+          "tempo_maximo_excedido",
+          "transferencia_atendente_concluida"
+        ],
+        "protocolo": [
+          "pergunta_resolvi_sua_duvida",
+          "oferece_mais_alguma_coisa",
+          "agradece",
+          "despede_volte_sempre"
+        ]
+      }
+    },
+    
+    "comportamento_bot": {
+      "respostas": {
+        "max_perguntas_seguidas": 2,
+        "nao_entendeu": "Pode reformular?",
+        "nao_entendeu_2x": "Quer falar com atendente?",
+        "respostas_variadas": true
+      },
+      "limitacoes": [
+        "nao_promete_prazos_exatos",
+        "nao_confirma_compras",
+        "nao_processa_pagamentos",
+        "nao_altera_dados_cadastrais"
+      ],
+      "acoes_permitidas": [
+        "informar_precos_catalogo",
+        "verificar_estoque_geral",
+        "explicar_politicas_empresa",
+        "coletar_dados_para_atendente",
+        "encaminhar_setores_especificos"
+      ],
+      "palavras_proibidas": [
+        "garantido", "com certeza", "absolutamente",
+        "sempre", "nunca", "definitivamente",
+        "prometo", "asseguro", "comprometo"
+      ]
+    },
+    
+    "intencoes_reconhecidas": {
+      "saudacao": {
+        "palavras": ["olá", "oi", "bom dia", "boa tarde", "boa noite"],
+        "resposta": "saudacao_oferta_ajuda"
+      },
+      "produto": {
+        "palavras": ["produto", "item", "mercadoria", "compra"],
+        "acao": "perguntar_nome_produto"
+      },
+      "preco": {
+        "palavras": ["preço", "valor", "quanto custa", "custa quanto"],
+        "acao": "pedir_nome_produto_primeiro"
+      },
+      "estoque": {
+        "palavras": ["estoque", "disponível", "tem em estoque"],
+        "acao": "verificar_informar_disponibilidade"
+      },
+      "pagamento": {
+        "palavras": ["pagamento", "pagar", "cartão", "boleto"],
+        "acao": "listar_formas_pagamento"
+      },
+      "entrega": {
+        "palavras": ["entrega", "frete", "envio", "prazo"],
+        "acao": "pedir_cep_calculo"
+      },
+      "problema": {
+        "palavras": ["problema", "erro", "defeito", "quebrou"],
+        "acao": "pedir_detalhes_transferir_atendente"
+      },
+      "atendente": {
+        "palavras": ["atendente", "humano", "pessoa"],
+        "acao": "transferir_imediatamente"
+      }
+    },
+    
+    "fluxo_principal": {
+      "passo_1_identificacao": {
+        "entrada": "anonima",
+        "acao": "pergunta_qual_seu_nome",
+        "busca_bd": true,
+        "resultados": {
+          "encontrou": ["saudacao_com_nome", "usa_dados_usuario"],
+          "nao_encontrou": ["pergunta_eh_cliente", "coleta_email"]
+        }
+      },
+      "passo_2_triagem": {
+        "pergunta_inicial": true,
+        "detecao_intencao": true,
+        "destinos": {
+          "simples": "responde_bot",
+          "complexa": "prepara_transferencia"
+        }
+      },
+      "passo_3_atendimento": {
+        "bot_responde_vezes": [2, 3],
+        "avalia_necessidade": true,
+        "resultados": {
+          "resolvido": "encerra",
+          "nao_resolvido": "transfere"
+        }
+      },
+      "passo_4_transferencia": {
+        "notifica_atendente": true,
+        "entrega_contexto": true,
+        "cliente_aguarda": true,
+        "atendente_assume": true
+      },
+      "passo_5_encerramento": {
+        "confirma_resolucao": true,
+        "avaliacao": true,
+        "fecha_conversa": true
+      }
+    },
+    
+    "estados_conversa": {
+      "estados": [
+        "AGUARDANDO_NOME",
+        "IDENTIFICADO",
+        "COM_BOT",
+        "AGUARDANDO_ATENDENTE",
+        "COM_ATENDENTE",
+        "AGUARDANDO_RESPOSTA",
+        "FINIALIZADA",
+        "ARQUIVADA"
+      ]
+    },
+    
+    "armazenamento_mensagens": {
+      "todas_salvas": true,
+      "historico_completo_por_conversa": true,
+      "metadados": [
+        "tempo_resposta",
+        "intencao",
+        "satisfacao"
+      ],
+      "retencao": {
+        "clientes_anos": 2,
+        "visitantes_meses": 6
+      },
+      "backup": "diario_automatico"
+    },
+    
+    "privacidade_seguranca": {
+      "dados_nunca_armazenados": [
+        "senhas",
+        "numeros_completos_cartao",
+        "cpf_completo_apenas_4_ultimos_digitos",
+        "dados_sensiveis_saude"
+      ],
+      "dados_opcionais": [
+        {
+          "email": {
+            "para": "nao_clientes",
+            "obrigatorio": false
+          }
+        },
+        {
+          "telefone": {
+            "condicao": "apenas_se_necessario",
+            "obrigatorio": false
+          }
+        },
+        {
+          "endereco_completo": {
+            "condicao": "apenas_para_entrega",
+            "obrigatorio": false
+          }
+        }
+      ],
+      "anonimizacao": {
+        "visitantes": "id_anonimo",
+        "dados_pessoais": "criptografados",
+        "logs": "sem_informacoes_sensiveis"
+      }
+    },
+    
+    "limites_tecnicos": {
+      "mensagens": {
+        "tamanho_maximo_caracteres": 5000,
+        "anexos": {
+          "tamanho_maximo_mb": 10,
+          "tipos_permitidos": ["imagens", "pdf"]
+        },
+        "rate_limit": {
+          "mensagens_por_minuto": 30,
+          "por_usuario": true
+        },
+        "flood_control": {
+          "mensagens_por_10_segundos": 10
+        }
+      },
+      "conexoes": {
+        "websocket_timeout_minutos": 30,
+        "reconexao_automatica_tentativas": 3,
+        "sessao_maxima_horas": 8
+      },
+      "banco_dados": {
+        "mensagens_por_conversa": "ilimitado",
+        "conversas_ativas_por_usuario_maximo": 3,
+        "historico_carregado_ultimas_mensagens": 100
+      }
+    },
+    
+    "situacoes_especiais": {
+      "sistema_fora_do_ar": {
+        "mensagem_automatica": "Sistema em manutenção",
+        "coleta_email_retorno": true,
+        "redirecionamento_telefone": true
+      },
+      "atendentes_indisponiveis": {
+        "bot_informa": "Todos ocupados, aguarde",
+        "tempo_estimado_espera": true,
+        "opcao_receber_retorno_email": true
+      },
+      "problemas_tecnicos": {
+        "tentativa_1": "reiniciar_conversa",
+        "tentativa_2": "oferecer_contato_alternativo",
+        "tentativa_3": "registrar_incidente"
+      },
+      "palavras_risco": {
+        "palavras": ["suicídio", "morrer", "acabar com tudo"],
+        "acao": "contato_imediato_supervisor",
+        "oferta_ajuda_profissional": true
+      }
+    },
+    
+    "escalonamento": {
+      "niveis": [
+        {
+          "nivel": 1,
+          "nome": "BOT",
+          "responsabilidade": "perguntas_simples_informacoes"
+        },
+        {
+          "nivel": 2,
+          "nome": "ATENDENTE_JUNIOR",
+          "responsabilidade": "problemas_comuns_vendas_suporte_basico"
+        },
+        {
+          "nivel": 3,
+          "nome": "ATENDENTE_SENIOR",
+          "responsabilidade": "reclamacoes_problemas_complexos"
+        },
+        {
+          "nivel": 4,
+          "nome": "SUPERVISOR",
+          "responsabilidade": "situacoes_criticas_escalonamentos"
+        },
+        {
+          "nivel": 5,
+          "nome": "GERENCIA",
+          "responsabilidade": "emergencias_decisoes_estrategicas"
+        }
+      ]
+    },
+    
+    "kpis_monitorados": {
+      "tempos": {
+        "tempo_resposta_bot_segundos": 3,
+        "tempo_resposta_atendente_minutos": 3,
+        "tempo_espera_fila_minutos": 5,
+        "duracao_media_conversa_minutos": [8, 15]
+      },
+      "qualidade": {
+        "satisfacao_cliente_percentual": 85,
+        "resolucao_primeira_resposta_percentual": 70,
+        "taxa_transferencia_humano_percentual": [30, 40],
+        "reincidencia_percentual": 10
+      },
+      "volume": {
+        "conversas_simultaneas_por_atendente": [2, 3],
+        "mensagens_por_conversa": [10, 20],
+        "conversas_por_dia": "monitorar_picos"
+      }
+    },
+    
+    "regras_notificacao": {
+      "para_clientes": {
+        "nova_mensagem": "notificacao_tempo_real",
+        "atendente_disponivel": "Agora é comigo, [Nome]!",
+        "inatividade_minutos": 5,
+        "mensagem_inatividade": "Ainda está aí?",
+        "conversa_encerrada": "Obrigado por conversar!"
+      },
+      "para_atendentes": {
+        "nova_conversa": "alerta_sonoro_visual",
+        "cliente_vip": "destaque_especial",
+        "tempo_espera_alertas_minutos": 2,
+        "conversa_prolongada": "sugestao_encerramento"
+      }
+    },
+    
+    "comportamento_inadequado": {
+      "bloqueio_automatico": [
+        "palavroes_ofensas",
+        "spam_mesma_mensagem_5_vezes",
+        "flood_20_mensagens_1_minuto",
+        "links_maliciosos"
+      ],
+      "avaliacao_humana": [
+        "discussoes_politicas_religiosas",
+        "conteudo_sensivel",
+        "situacoes_ambiguas"
+      ],
+      "acoes": [
+        {
+          "primeira_vez": "aviso"
+        },
+        {
+          "segunda_vez": "bloqueio_24h"
+        },
+        {
+          "terceira_vez": "bloqueio_permanente"
+        }
+      ]
+    },
+    
+    "conformidade_legal": {
+      "lgpd_gdpr": {
+        "consentimento_coleta_dados": true,
+        "direito_esquecimento": true,
+        "portabilidade_dados": true,
+        "transparencia_uso": true
+      },
+      "registro": {
+        "logs_todas_interacoes": true,
+        "consentimentos_registrados": true,
+        "auditoria_trimestral": true,
+        "relatorios_conformidade": true
+      }
+    },
+    
+    "resumo_principal": {
+      "para_usuario": [
+        "identifique_se_nome_completo_atendimento_personalizado",
+        "horario_humano_9h_18h_segunda_sexta",
+        "bot_primeiro_todas_conversas_comecam_bot",
+        "transferencia_apos_3_tentativas_solicitacao_explicita",
+        "paciencia_tempo_medio_espera_2_5_minutos"
+      ],
+      "para_sistema": [
+        "validacao_sempre_buscar_bd_antes_atendimento",
+        "sanitizacao_limpar_todas_entradas_contra_xss_sql_injection",
+        "roteamento_inteligente_bot_atendente_baseado_regras",
+        "backup_automatico_todas_conversas_salvas",
+        "monitoramento_kpis_tempo_real"
+      ],
+      "para_atendentes_futuro": [
+        "maximo_3_conversas_simultaneas",
+        "resposta_3_minutos",
+        "contexto_completo_historico_dados_usuario",
+        "protocolo_encerramento_sempre_confirmar_resolucao",
+        "avaliacao_obrigatoria_coletar_feedback_cliente"
+      ]
+    }
+  }
+}

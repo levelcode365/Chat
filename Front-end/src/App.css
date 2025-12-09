@@ -1,12 +1,13 @@
-/* Container principal da aplicação quando o chat está aberto */
 .app-container {
-  width: 100vw; /* Largura total da tela */
-  height: 100vh; /* Altura total da tela */
-  overflow: hidden; /* Esconde qualquer conteúdo que ultrapasse os limites */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
 }
-
-/* Wrapper que envolve o layout do chat */
 .chat-wrapper {
-  width: 100%; /* Ocupa toda a largura do container pai */
-  height: 100%; /* Ocupa toda a altura do container pai */
+  width: 100%;
+  height: 100%; 
 }

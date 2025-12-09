@@ -1,36 +1,39 @@
 const express = require('express');
+const http = require('http');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const rotas = require('./rotas.js');
-const { iniciarWebSocket } = require('../config/websocket.js'); // .js é importante!
+const { iniciarWebSocket } = require('../config/websocket.js');
 
 const app = express();
 
-app.use(helmet()); // Segurança HTTP headers
+// Middlewares
+app.use(helmet());
 app.use(cors({
-    origin: '*', // Em produção, especifique domínios
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// Rate limiting
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 200, // Limite de 200 requisições por IP
+    windowMs: 15 * 60 * 1000,
+    max: 200,
     message: { 
         erro: 'Limite de requisições excedido. Tente novamente em 15 minutos.' 
     },
-    standardHeaders: true, // Retorna rate limit info nos headers
-    legacyHeaders: false // Desabilita headers antigos
+    standardHeaders: true,
+    legacyHeaders: false
 });
 app.use(limiter);
 
-
+// Rotas
 app.use('/api', rotas);
 
-
+// Rotas de status
 app.get('/status', (req, res) => {
     res.json({
         online: true,
@@ -50,21 +53,39 @@ app.get('/health', (req, res) => {
     });
 });
 
+app.get('/ws-info', (req, res) => {
+    res.json({
+        protocol: 'WebSocket',
+        compatible_clients: ['Socket.io', 'WebSocket nativo'],
+        endpoints: {
+            websocket: 'ws://localhost:3001/socket.io/',
+            transport: 'websocket/polling',
+            namespace: '/'
+        }
+    });
+});
 
 app.get('/', (req, res) => {
     res.json({
-        mensagem: 'Bem-vindo à API do Chat',
+        mensagem: 'Bem-vindo à API do Chat com Roteamento Inteligente',
         endpoints: {
             api: '/api',
             status: '/status',
             health: '/health',
-            websocket: 'ws://localhost:3000' // Seu WebSocket
+            ws_info: '/ws-info',
+            websocket: 'ws://localhost:3001'
         },
-        documentacao: 'Em breve: /api-docs'
+        features: [
+            'Roteamento inteligente bot/atendente',
+            'Socket.io para comunicação em tempo real',
+            'Autenticação JWT',
+            'Rate limiting',
+            'CORS habilitado'
+        ]
     });
 });
 
-
+// 404 handler
 app.use((req, res, next) => {
     res.status(404).json({
         erro: 'Endpoint não encontrado',
@@ -73,9 +94,9 @@ app.use((req, res, next) => {
     });
 });
 
-
+// Error handler
 app.use((err, req, res, next) => {
-    console.error('Erro não tratado:', err);
+    console.error('❌ Erro não tratado:', err);
     
     res.status(err.status || 500).json({
         erro: 'Erro interno do servidor',
@@ -84,41 +105,67 @@ app.use((err, req, res, next) => {
     });
 });
 
-
 function iniciarServidor() {
-    const PORTA = process.env.DB_PORTA || 3001;
+    const PORTA = process.env.APP_SERVER_PORT || 3001;
 
-    // Iniciar servidor HTTP
-    const servidor = app.listen(PORTA, () => {
-        console.log('='.repeat(50));
-        console.log('CHAT BACKEND INICIADO COM SUCESSO!');
-        console.log('='.repeat(50));
-        console.log(`Local:    http://localhost:${PORTA}`);
-        console.log(`API:      http://localhost:${PORTA}/api`);
-        console.log(`Health:   http://localhost:${PORTA}/health`);
-        console.log(`Status:   http://localhost:${PORTA}/status`);
-        console.log(`WebSocket: ws://localhost:${PORTA}`);
-        console.log('='.repeat(50));
-        console.log('Logs abaixo ↓');
-        console.log('='.repeat(50));
-    });
+    // Criar servidor HTTP primeiro
+    const servidor = http.createServer(app);
 
-    // Configurar WebSocket no MESMO servidor
-    iniciarWebSocket(servidor);
-    
-    // Graceful shutdown
-    process.on('SIGTERM', () => {
-        console.log('Recebido SIGTERM, encerrando graciosamente...');
-        servidor.close(() => {
-            console.log('Servidor HTTP fechado');
-            process.exit(0);
+    // Configurar eventos do servidor ANTES de iniciar
+    return new Promise((resolve, reject) => {
+        servidor.listen(PORTA, () => {
+            console.log('='.repeat(50));
+            console.log('CHAT BACKEND INICIADO COM SUCESSO!');
+            console.log('='.repeat(50));
+            console.log(`Local:    http://localhost:${PORTA}`);
+            console.log(`API:      http://localhost:${PORTA}/api`);
+            console.log(`Health:   http://localhost:${PORTA}/health`);
+            console.log(`Status:   http://localhost:${PORTA}/status`);
+            console.log(`WebSocket: ws://localhost:${PORTA}/socket.io/`);
+            console.log(`WS Info:  http://localhost:${PORTA}/ws-info`);
+            console.log('='.repeat(50));
+            console.log(' Socket.io configurado com roteamento inteligente!');
+            console.log(' Bot <-> Atendente funcionando!');
+            console.log('='.repeat(50));
+            console.log('Logs abaixo ↓');
+            console.log('='.repeat(50));
+
+            // SÓ DEPOIS que o servidor está ouvindo, iniciar WebSocket
+            try {
+                const io = iniciarWebSocket(servidor);
+                if (io) {
+                    console.log('✅ WebSocket configurado com sucesso');
+                } else {
+                    console.log('⚠️ WebSocket não pôde ser configurado, mas HTTP está funcionando');
+                }
+            } catch (wsError) {
+                console.error('⚠️ Erro ao configurar WebSocket:', wsError.message);
+                console.log('ℹ️ Servidor HTTP continuará funcionando sem WebSocket');
+            }
+
+            resolve({ app, servidor });
+        });
+
+        servidor.on('error', (err) => {
+            console.error('❌ Erro ao iniciar servidor HTTP:', err.message);
+            reject(err);
         });
     });
-
-    return servidor;
 }
 
-// Exportar para testes e reutilização
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('👋 Recebido SIGTERM, encerrando graciosamente...');
+    if (global.httpServer) {
+        global.httpServer.close(() => {
+            console.log('✅ Servidor HTTP fechado');
+            process.exit(0);
+        });
+    } else {
+        process.exit(0);
+    }
+});
+
 module.exports = {
     app,
     iniciarServidor

@@ -1,0 +1,11 @@
+/* Estilos do cabeçalho do chat */
+.chat-header {
+  background: #00213E; /* Fundo azul escuro */
+  color: white; /* Texto branco */
+  padding: 16px; /* Espaçamento interno */
+  display: flex; /* Usa flexbox para organizar elementos */
+  justify-content: space-between; /* Espaça elementos nas extremidades */
+  align-items: center; /* Alinha verticalmente ao centro */
+  font-weight: bold; /* Texto em negrito */
+  font-size: 16px; /* Tamanho da fonte */
+}

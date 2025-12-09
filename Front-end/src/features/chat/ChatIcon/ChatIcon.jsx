@@ -1,32 +1,22 @@
-/**
- * Componente ChatIcon
- * Ícone flutuante que fica no canto inferior direito da tela
- * Quando clicado, abre a janela de chat
- */
-
-// Importa a biblioteca React
 import React from "react";
-// Importa os estilos do componente
 import "./ChatIcon.css";
 
 /**
- * Componente que renderiza o ícone flutuante do chat
- * @param {Function} onClick - Função chamada quando o ícone é clicado
- * @param {boolean} isOpen - Indica se o chat está aberto (controla visibilidade)
+ * @param {Function} onClick
+ * @param {boolean} isOpen
  */
 export default function ChatIcon({ onClick, isOpen }) {
   return (
-    // Botão flutuante com classe que controla visibilidade
     <button 
-      className={`chat-icon ${isOpen ? 'hidden' : ''}`} // Adiciona classe 'hidden' se o chat estiver aberto
-      onClick={onClick} // Executa função ao clicar
-      title="Abrir chat" // Texto que aparece ao passar o mouse
+      className={`chat-icon ${isOpen ? 'hidden' : ''}`}
+      onClick={onClick}
+      title="Abrir chat"
     >
       {/* Ícone SVG de bolha de mensagem */}
       <svg 
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 24 24" 
-        fill="currentColor" // Usa a cor definida no CSS
+        fill="currentColor"
         width="40"
         height="40"
       >

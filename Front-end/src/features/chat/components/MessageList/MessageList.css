@@ -1,51 +1,73 @@
-/* Container da lista de mensagens */
 .message-list {
-  display: flex; /* Usa flexbox */
-  flex-direction: column; /* Organiza mensagens em coluna (vertical) */
-  gap: 8px; /* Espaço de 8px entre cada mensagem */
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* === Indicador de digitação (3 pontos animados) === */
-
-/* Container do indicador de digitação */
-.typing-indicator {
-  display: flex; /* Usa flexbox para organizar os pontos */
-  gap: 4px; /* Espaço de 4px entre cada ponto */
-  padding: 12px 16px; /* Espaçamento interno */
-  background: #00213E; /* Fundo azul escuro (cor do bot) */
-  border-radius: 12px; /* Cantos arredondados */
-  width: fit-content; /* Largura ajustada ao conteúdo */
-  max-width: 80px; /* Largura máxima */
-  align-self: flex-start; /* Alinha à esquerda (como mensagem do bot) */
+.message-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #1e3c72;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, rgba(227, 242, 253, 0.5) 0%, rgba(187, 222, 251, 0.5) 100%);
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 2px 8px rgba(30, 60, 114, 0.1);
 }
 
-/* Cada ponto do indicador */
-.typing-dot {
-  width: 8px; /* Largura do ponto */
-  height: 8px; /* Altura do ponto */
-  background: white; /* Cor branca */
-  border-radius: 50%; /* Torna circular */
-  animation: typing 1.4s infinite; /* Animação infinita de 1.4 segundos */
+.message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
 }
 
-/* Delay para o segundo ponto (efeito de onda) */
-.typing-dot:nth-child(2) {
-  animation-delay: 0.2s;
+.message-remetente {
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
-/* Delay para o terceiro ponto (efeito de onda) */
-.typing-dot:nth-child(3) {
-  animation-delay: 0.4s;
+.message-texto {
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-/* Animação de digitação: pontos sobem e descem */
-@keyframes typing {
-  0%, 60%, 100% {
-    opacity: 0.3; /* Opacidade baixa */
-    transform: translateY(0); /* Posição normal */
-  }
-  30% {
-    opacity: 1; /* Opacidade total */
-    transform: translateY(-8px); /* Move 8px para cima */
-  }
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  align-self: flex-end;
+  margin-top: 4px;
+}
+
+/* Posicionamento das mensagens */
+.message-enviada {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message-enviada .message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message-recebida,
+.message-bot {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.message-sistema {
+  align-self: center;
+  max-width: 85%;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px 20px;
 }

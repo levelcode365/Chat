@@ -1,54 +1,49 @@
-/* Estilos do ícone flutuante do chat */
 .chat-icon {
-  position: fixed; /* Posição fixa na tela, não move com scroll */
-  bottom: 30px; /* Distância de 30px do fundo da tela */
-  right: 30px; /* Distância de 30px da direita da tela */
-  width: 80px; /* Largura do círculo */
-  height: 80px; /* Altura do círculo */
-  border-radius: 50%; /* Torna o elemento circular */
-  background: #00213E; /* Cor de fundo azul escuro */
-  color: white; /* Cor do ícone */
-  border: 3px solid white; /* Borda branca de 3px */
-  cursor: pointer; /* Mostra cursor de mão ao passar o mouse */
-  box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Sombra para efeito de elevação */
-  transition: all 0.3s ease; /* Transição suave de 0.3s para todas as propriedades */
-  display: flex; /* Usa flexbox para centralizar conteúdo */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: center; /* Centraliza horizontalmente */
-  z-index: 1000; /* Garante que fica sobre outros elementos */
-  animation: pulse 2s infinite; /* Animação de pulso a cada 2 segundos */
-  opacity: 1; /* Totalmente visível */
-  visibility: visible; /* Elemento visível */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #00213E; 
+  color: white;
+  border: 3px solid white;
+  cursor: pointer;
+  box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6);
+  transition: all 0.3s ease;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  z-index: 1000; 
+  animation: pulse 2s infinite; 
+  visibility: visible; 
 }
 
-/* Estado oculto do ícone */
 .chat-icon.hidden {
-  opacity: 0; /* Transparente */
-  visibility: hidden; /* Invisível */
-  pointer-events: none; /* Desabilita interações com mouse */
+  opacity: 0;
+  visibility: hidden; 
+  pointer-events: none; 
 }
 
-/* Efeito ao passar o mouse sobre o ícone */
 .chat-icon:hover {
-  transform: scale(1.15); /* Aumenta 15% do tamanho original */
-  box-shadow: 0px 12px 32px rgba(0, 33, 62, 0.8); /* Sombra mais intensa */
-  animation: none; /* Remove a animação de pulso */
+  transform: scale(1.15); 
+  box-shadow: 0px 12px 32px rgba(0, 33, 62, 0.8);
+  animation: none; 
 }
 
-/* Efeito ao clicar no ícone */
 .chat-icon:active {
-  transform: scale(0.95); /* Reduz para 95% do tamanho (efeito de apertar) */
+  transform: scale(0.95);
 }
 
-/* Animação de pulso do ícone */
+
 @keyframes pulse {
   0% {
-    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Sombra normal */
+    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); 
   }
   50% {
-    box-shadow: 0px 8px 32px rgba(0, 33, 62, 0.9); /* Sombra mais intensa */
+    box-shadow: 0px 8px 32px rgba(0, 33, 62, 0.9);
   }
   100% {
-    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6); /* Volta à sombra normal */
+    box-shadow: 0px 8px 24px rgba(0, 33, 62, 0.6);
   }
 }
